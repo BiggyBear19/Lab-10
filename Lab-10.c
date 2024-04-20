@@ -92,17 +92,22 @@ struct Trie *createTrie()
 int readDictionary(char *filename, char **pInWords)
 {
     FILE *file = fopen(filename, "r");
-
     if(file == NULL){
         return 0;
     }
-    else{
-        while (fscanf(file, "%s", pInWords) != EOF)
-        {
-            fscanf 
 
+    int count = 0;
+    for(int i = 0; i < 256; i++){
+        pInWords[i] = (char *)malloc(256);
+        if(fscanf(file, "%s", pInWords[i]) == EOF){
+            break;
         }
+        fscanf(file, "%s", pInWords[i]);
+        count++;
+
     }
+
+    return count;
 }
 
 int main(void)
@@ -110,7 +115,7 @@ int main(void)
     char *inWords[256];
 
     //read the number of the words in the dictionary
-    int numWords = readDictionary("dictionary.txt", inWords);
+    int numWords = readDictionary("dictionary-1.txt", inWords);
     for (int i=0;i<numWords;++i)
     {
         printf("%s\n",inWords[i]);
